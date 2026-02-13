@@ -6,7 +6,7 @@ Test repository for the AI-powered C++ code review agent.
 
 This repo receives webhook events that trigger the agent pipeline:
 1. **Knowledge Agent** queries Pinecone for relevant C++ review patterns
-2. **Coding Agent** implements fixes following LLVM coding standards  
+2. **Coding Agent** implements fixes following LLVM coding standards
 3. **Review Agent** validates changes before PR creation
 
 ## How To Trigger
