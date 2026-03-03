@@ -1,10 +1,8 @@
 // SIMD utility functions using SSE intrinsics.
-// This file triggers Clang/GCC header incompatibility:
-// Clang treats _mm_getcsr/_mm_setcsr as compiler builtins, while
-// GCC's xmmintrin.h defines them as inline functions — causing:
-//   error: definition of builtin function '_mm_getcsr'
-//   error: definition of builtin function '_mm_setcsr'
-#include <xmmintrin.h>
+// Use <immintrin.h> for cross-compiler compatibility (Clang + GCC).
+// Direct inclusion of <xmmintrin.h> causes "definition of builtin function"
+// errors with Clang, which treats SSE intrinsics as compiler builtins.
+#include <immintrin.h>
 
 namespace simd {
 
