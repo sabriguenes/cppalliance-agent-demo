@@ -1,6 +1,8 @@
 #ifndef JSON_VALUE_H
 #define JSON_VALUE_H
 
+#include <memory>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -24,9 +26,8 @@ public:
     explicit value(int i);
     explicit value(double d);
 
-    // BUG 4: pass-by-value for read-only parameter
-    //   Should be: const std::string& or std::string_view
-    explicit value(string s);
+    // Bug 4 fixed: const reference instead of pass-by-value
+    explicit value(const string& s);
 
     ~value();
 
@@ -37,20 +38,19 @@ public:
     double         as_double() const;
     const string&  as_string() const;
 
-    // BUG 2: returns int instead of size_t — truncation on large arrays
-    int size() const;
+    // Bug 2 fixed: returns size_t to avoid truncation
+    size_t size() const;
 
     void push_back(const value& v);
 
-    // BUG 5: returns raw pointer, nullptr on failure, no error info
-    static value* parse(string input);
+    // Bug 5 fixed: returns unique_ptr, throws on parse error
+    static std::unique_ptr<value> parse(const string& input);
 
 private:
     value_kind kind_;
 
-    // BUG 1: raw pointer for string storage — should use std::string member
-    char* str_data_;
-    int   str_len_;
+    // Bug 1 fixed: std::string member replaces raw char*/int pair
+    string str_data_;
 
     int    int_val_;
     double dbl_val_;
