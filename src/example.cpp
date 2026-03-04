@@ -1,6 +1,7 @@
 // Example C++ file with intentional review triggers
 #include <vector>
 #include <string>
+#include <string_view>
 
 using namespace std;  // LLVM forbids this
 
@@ -12,8 +13,8 @@ public:
         return buf;
     }
 
-    // Pass by value instead of const reference
-    void processData(string data) {
-        // should use const string& data
+    // Read-only string parameter using std::string_view
+    void processData(std::string_view data) {
+        // Uses string_view for efficient read-only parameter passing
     }
 };
