@@ -1,4 +1,5 @@
 // Example C++ file with intentional review triggers
+#include <memory>
 #include <vector>
 #include <string>
 
@@ -6,10 +7,9 @@ using namespace std;  // LLVM forbids this
 
 class TemplateHelper {
 public:
-    // Raw pointer without smart pointer
-    int* createBuffer(int size) {
-        int* buf = new int[size];
-        return buf;
+    // RAII: return unique_ptr instead of raw pointer
+    std::unique_ptr<int[]> createBuffer(int size) {
+        return std::make_unique<int[]>(size);
     }
 
     // Pass by value instead of const reference
