@@ -17,3 +17,4 @@ public:
         // should use const string& data
     }
 };
+// CI debounce test
