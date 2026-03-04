@@ -17,3 +17,7 @@ public:
         // should use const string& data
     }
 };
+
+int main() {
+    return 0;
+}
