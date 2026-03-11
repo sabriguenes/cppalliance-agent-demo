@@ -1,19 +1,17 @@
-// Example C++ file with intentional review triggers
-#include <vector>
+// Example C++ file with LLVM coding standard compliance
+#include <memory>
 #include <string>
-
-using namespace std;  // LLVM forbids this
+#include <vector>
 
 class TemplateHelper {
 public:
-    // Raw pointer without smart pointer
-    int* createBuffer(int size) {
-        int* buf = new int[size];
-        return buf;
+    // Use unique_ptr for automatic memory management
+    std::unique_ptr<int[]> createBuffer(int Size) {
+        return std::make_unique<int[]>(Size);
     }
 
-    // Pass by value instead of const reference
-    void processData(string data) {
-        // should use const string& data
+    // Pass by const reference to avoid unnecessary copies
+    void processData(const std::string &Data) {
+        // Process data without copying
     }
 };
